@@ -104,12 +104,16 @@ def VGG16(include_top=True, weights='imagenet',
     x = Convolution2D(512, 3, 3, activation='relu', border_mode='same', name='block5_conv3')(x)
     x = MaxPooling2D((2, 2), strides=(2, 2), name='block5_pool')(x)
 
+    # Block JD
+    # x = Flatten(name='flatten')(x)
+    # x = Dense(4096, activation='relu', name='fc1')(x)
+
     if include_top:
         # Classification block
         x = Flatten(name='flatten')(x)
         x = Dense(4096, activation='relu', name='fc1')(x)
         x = Dense(4096, activation='relu', name='fc2')(x)
-        x = Dense(1000, activation='softmax', name='predictions')(x)
+        x = Dense(1000, activation='relu', name='predictions')(x)
 
     # Create model
     model = Model(img_input, x)
@@ -148,6 +152,8 @@ def VGG16(include_top=True, weights='imagenet',
                 #                         TF_WEIGHTS_PATH_NO_TOP,
                 #                         cache_subdir='models')
                 weights_path = TF_WEIGHTS_PATH_NO_TOP
+                # weights_path = TF_WEIGHTS_PATH
+
             model.load_weights(weights_path)
             if K.backend() == 'theano':
                 convert_all_kernels_in_model(model)
