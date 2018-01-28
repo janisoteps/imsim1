@@ -191,13 +191,10 @@ def Xception(include_top=True, weights='imagenet',
     # load weights
     if weights == 'imagenet':
         if include_top:
-            weights_path = get_file('xception_weights_tf_dim_ordering_tf_kernels.h5',
-                                    TF_WEIGHTS_PATH,
-                                    cache_subdir='models')
+            weights_path = '/Users/janisdzikevics/dev/imsim/imsim1/.keras/models/xception_weights_tf_dim_ordering_tf_kernels.h5'
         else:
-            weights_path = get_file('xception_weights_tf_dim_ordering_tf_kernels_notop.h5',
-                                    TF_WEIGHTS_PATH_NO_TOP,
-                                    cache_subdir='models')
+            weights_path = '/Users/janisdzikevics/dev/imsim/imsim1/.keras/models/xception_weights_tf_dim_ordering_tf_kernels_notop.h5'
+
         model.load_weights(weights_path)
 
     if old_dim_ordering:

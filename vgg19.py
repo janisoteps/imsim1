@@ -22,9 +22,9 @@ from imagenet_utils import decode_predictions, preprocess_input
 
 
 TH_WEIGHTS_PATH = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg19_weights_th_dim_ordering_th_kernels.h5'
-TF_WEIGHTS_PATH = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg19_weights_tf_dim_ordering_tf_kernels.h5'
+TF_WEIGHTS_PATH = '/Users/janisdzikevics/dev/imsim/imsim1/.keras/models/vgg19_weights_tf_dim_ordering_tf_kernels.h5'
 TH_WEIGHTS_PATH_NO_TOP = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg19_weights_th_dim_ordering_th_kernels_notop.h5'
-TF_WEIGHTS_PATH_NO_TOP = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5'
+TF_WEIGHTS_PATH_NO_TOP = '/Users/janisdzikevics/dev/imsim/imsim1/.keras/models/vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5'
 
 
 def VGG19(include_top=True, weights='imagenet',
@@ -111,7 +111,7 @@ def VGG19(include_top=True, weights='imagenet',
         x = Flatten(name='flatten')(x)
         x = Dense(4096, activation='relu', name='fc1')(x)
         x = Dense(4096, activation='relu', name='fc2')(x)
-        x = Dense(1000, activation='softmax', name='predictions')(x)
+        x = Dense(1000, activation='sigmoid', name='predictions')(x)
 
     # Create model
     model = Model(img_input, x)
@@ -140,14 +140,24 @@ def VGG19(include_top=True, weights='imagenet',
                               'at ~/.keras/keras.json.')
                 convert_all_kernels_in_model(model)
         else:
+            # if include_top:
+            #     weights_path = get_file('vgg19_weights_tf_dim_ordering_tf_kernels.h5',
+            #                             TF_WEIGHTS_PATH,
+            #                             cache_subdir='models')
+            # else:
+            #     weights_path = get_file('vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5',
+            #                             TF_WEIGHTS_PATH_NO_TOP,
+            #                             cache_subdir='models')
             if include_top:
-                weights_path = get_file('vgg19_weights_tf_dim_ordering_tf_kernels.h5',
-                                        TF_WEIGHTS_PATH,
-                                        cache_subdir='models')
+                # weights_path = get_file('vgg16_weights_tf_dim_ordering_tf_kernels.h5',
+                #                         TF_WEIGHTS_PATH,
+                #                         cache_subdir='models')
+                weights_path = TF_WEIGHTS_PATH
             else:
-                weights_path = get_file('vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5',
-                                        TF_WEIGHTS_PATH_NO_TOP,
-                                        cache_subdir='models')
+                # weights_path = get_file('vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5',
+                #                         TF_WEIGHTS_PATH_NO_TOP,
+                #                         cache_subdir='models')
+                weights_path = TF_WEIGHTS_PATH_NO_TOP
             model.load_weights(weights_path)
             if K.backend() == 'theano':
                 convert_all_kernels_in_model(model)

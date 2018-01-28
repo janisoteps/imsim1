@@ -31,7 +31,7 @@ from imagenet_utils import decode_predictions
 
 
 TH_WEIGHTS_PATH = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.2/inception_v3_weights_th_dim_ordering_th_kernels.h5'
-TF_WEIGHTS_PATH = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.2/inception_v3_weights_tf_dim_ordering_tf_kernels.h5'
+TF_WEIGHTS_PATH = '/Users/janisdzikevics/dev/imsim/imsim1/.keras/models/inception_v3_weights_tf_dim_ordering_tf_kernels.h5'
 TH_WEIGHTS_PATH_NO_TOP = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.2/inception_v3_weights_th_dim_ordering_th_kernels_notop.h5'
 TF_WEIGHTS_PATH_NO_TOP = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.2/inception_v3_weights_tf_dim_ordering_tf_kernels_notop.h5'
 
@@ -291,10 +291,11 @@ def InceptionV3(include_top=True, weights='imagenet',
                 convert_all_kernels_in_model(model)
         else:
             if include_top:
-                weights_path = get_file('inception_v3_weights_tf_dim_ordering_tf_kernels.h5',
-                                        TF_WEIGHTS_PATH,
-                                        cache_subdir='models',
-                                        md5_hash='fe114b3ff2ea4bf891e9353d1bbfb32f')
+                weights_path = TF_WEIGHTS_PATH
+                # weights_path = get_file('inception_v3_weights_tf_dim_ordering_tf_kernels.h5',
+                #                         TF_WEIGHTS_PATH,
+                #                         cache_subdir='models',
+                #                         md5_hash='fe114b3ff2ea4bf891e9353d1bbfb32f')
             else:
                 weights_path = get_file('inception_v3_weights_tf_dim_ordering_tf_kernels_notop.h5',
                                         TF_WEIGHTS_PATH_NO_TOP,
